@@ -1,0 +1,174 @@
+/* Color picker. Class / variable prefix: cpick- */
+
+:root {
+  --cpick-scale: 1.2;
+  --cpick-popup-bg: #181818;
+  --cpick-popup-border: rgba(255, 255, 255, 0.1);
+  --cpick-slider-h: 10px;
+  --cpick-slider-r: 6px;
+  --cpick-thumb-size: 12px;
+  --cpick-text: #e4e4e7;
+  --cpick-text-dim: #888;
+  --cpick-accent: #6b8aff;
+  --cpick-radius: 4px;
+}
+
+.cpick-popup {
+  position: fixed;
+  z-index: 9999;
+  background: var(--cpick-popup-bg);
+  border: 1px solid var(--cpick-popup-border);
+  border-radius: var(--cpick-radius);
+  padding: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  width: 162px;
+  user-select: none;
+  -webkit-user-select: none;
+  transform: scale(var(--cpick-scale));
+  transform-origin: top left;
+}
+
+.cpick-sv {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  border-radius: var(--cpick-radius);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  overflow: visible;
+}
+
+.cpick-sv-white {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--cpick-radius);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background: linear-gradient(to right, #fff, transparent);
+}
+
+.cpick-sv-black {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--cpick-radius);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background: linear-gradient(to bottom, transparent, #000);
+}
+
+.cpick-sv-cursor {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cpick-hue,
+.cpick-alpha {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 94%;
+  height: var(--cpick-slider-h);
+  border-radius: var(--cpick-slider-r);
+  outline: none;
+  cursor: pointer;
+  border: none;
+  margin-left: 4px;
+}
+
+.cpick-hue::-webkit-slider-thumb,
+.cpick-alpha::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--cpick-thumb-size);
+  height: var(--cpick-thumb-size);
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.cpick-hue {
+  background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+}
+
+.cpick-alpha-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cpick-alpha {
+  flex: 1;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0), rgb(var(--cpick-color, 0, 0, 0))),
+    repeating-conic-gradient(#555 0% 25%, #333 0% 50%) 0 0 / 8px 8px;
+}
+
+.cpick-alpha-num {
+  font-size: 11px;
+  color: var(--cpick-text-dim);
+  min-width: 30px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  margin-right: 4px;
+}
+
+.cpick-modes {
+  display: flex;
+  gap: 2px;
+  padding: 0 4px;
+}
+
+.cpick-mode-btn {
+  flex: 1;
+  padding: 2px 0;
+  font-size: 10px;
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--cpick-text-dim);
+  transition: background 0.1s, color 0.1s;
+}
+
+.cpick-mode-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cpick-text);
+}
+
+.cpick-mode-btn[data-active] {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--cpick-text);
+}
+
+.cpick-value {
+  width: 100%;
+  background: oklch(from var(--cpick-popup-bg) calc(l + .1) c h /0.5);
+  border: 0px solid var(--cpick-popup-border);
+  border-radius: var(--cpick-radius);
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  color: var(--cpick-text);
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  padding: 3px 6px;
+  outline: none;
+  text-align: center;
+}
+
+.cpick-value:focus {
+  border-color: var(--cpick-accent);
+}
