@@ -1,0 +1,11 @@
+{
+  "name": "color-picker",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "color-popup.js",
+  "files": [
+    "color-popup.js",
+    "color-math.js",
+    "color-picker.css"
+  ]
+}
